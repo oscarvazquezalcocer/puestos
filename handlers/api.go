@@ -1,8 +1,8 @@
 package handlers
 
 import (
-	"itsva-puestos/models"
 	"net/http"
+	"puestos/models"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
@@ -10,20 +10,20 @@ import (
 
 func ListAPI(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
-	var funciones []models.Funcion
-	db.Find(&funciones)
+	var puestos []models.Puesto
+	db.Find(&puestos)
 
-	c.JSON(http.StatusOK, gin.H{"funciones": funciones})
+	c.JSON(http.StatusOK, gin.H{"puestos": puestos})
 }
 
 func ShowAPI(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 
-	var funcion models.Funcion
-	if err := db.First(&funcion, c.Param("id")).Error; err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "Funcion no encontrada"})
+	var puesto models.Puesto
+	if err := db.First(&puesto, c.Param("id")).Error; err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Puesto no encontrado"})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"funcion": funcion})
+	c.JSON(http.StatusOK, gin.H{"puesto": puesto})
 }

@@ -1,9 +1,8 @@
 package handlers
 
 import (
-	"itsva-puestos/models"
-
 	"net/http"
+	"puestos/models"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
@@ -11,10 +10,10 @@ import (
 
 func List(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
-	var funciones []models.Funcion
-	db.Find(&funciones)
+	var puestos []models.Puesto
+	db.Find(&puestos)
 
-	c.HTML(http.StatusOK, "list.html", gin.H{"funciones": funciones})
+	c.HTML(http.StatusOK, "list.html", gin.H{"puestos": puestos})
 }
 
 func ShowForm(c *gin.Context) {
@@ -26,13 +25,13 @@ func ShowForm(c *gin.Context) {
 func Create(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 
-	var newFuncion models.Funcion
-	if err := c.ShouldBind(&newFuncion); err != nil {
+	var newPuesto models.Puesto
+	if err := c.ShouldBind(&newPuesto); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	if err := db.Create(&newFuncion).Error; err != nil {
+	if err := db.Create(&newPuesto).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
@@ -44,43 +43,43 @@ func Create(c *gin.Context) {
 func Show(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	id := c.Param("id")
-	var funcion models.Funcion
-	result := db.First(&funcion, id)
+	var puesto models.Puesto
+	result := db.First(&puesto, id)
 	if result.Error != nil {
-		c.HTML(http.StatusNotFound, "error.html", gin.H{"message": "Funcion no encontrada"})
+		c.HTML(http.StatusNotFound, "error.html", gin.H{"message": "Puesto no encontrado"})
 		return
 	}
 
-	c.HTML(http.StatusOK, "show.html", gin.H{"funcion": funcion})
+	c.HTML(http.StatusOK, "show.html", gin.H{"puesto": puesto})
 }
 
 func Update(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	id := c.Param("id")
-	var funcion models.Funcion
-	result := db.First(&funcion, id)
+	var puesto models.Puesto
+	result := db.First(&puesto, id)
 	if result.Error != nil {
 		c.HTML(http.StatusNotFound, "error.html", gin.H{"message": "Puesto no encontrado"})
 		return
 	}
-	if err := c.ShouldBind(&funcion); err != nil {
+	if err := c.ShouldBind(&puesto); err != nil {
 		c.HTML(http.StatusBadRequest, "error.html", gin.H{"message": err.Error()})
 		return
 	}
 
-	db.Save(&funcion)
+	db.Save(&puesto)
 	c.Redirect(http.StatusSeeOther, "/")
 }
 
 func Delete(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	id := c.Param("id")
-	var funcion models.Funcion
-	result := db.First(&funcion, id)
+	var puesto models.Puesto
+	result := db.First(&puesto, id)
 	if result.Error != nil {
-		c.HTML(http.StatusNotFound, "error.html", gin.H{"message": "Funcion no encontrada"})
+		c.HTML(http.StatusNotFound, "error.html", gin.H{"message": "Puesto no encontrado"})
 		return
 	}
-	db.Delete(&funcion)
+	db.Delete(&puesto)
 	c.Redirect(http.StatusSeeOther, "/")
 }

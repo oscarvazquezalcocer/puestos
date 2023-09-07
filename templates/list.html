@@ -70,10 +70,10 @@
     </style>
 </head>
 <body>
-    <h1>Listado de Funciones</h1>
+    <h1>Listado de Puestos</h1>
     <div class="content-container">
         <div class="buttons-container">
-            <a href="/create" class="create-button">Crear Nueva Funcion</a>
+            <a href="/create" class="create-button">Crear Nuevo Puesto</a>
         </div>
         <div class="table-container">
             <table>
@@ -82,7 +82,7 @@
                     <th>Nombre</th>
                     <th>Clave</th>
                 </tr>
-                {{ range .funciones }}
+                {{ range .puestos }}
                 <tr onclick="window.location='/{{ .ID }}';">
                     <td>{{ .ID }}</td>
                     <td>{{ .Nombre }}</td>

@@ -1,10 +1,10 @@
 package main
 
 import (
-	"itsva-puestos/config"
-	"itsva-puestos/models"
-	"itsva-puestos/routes"
 	"net/http"
+	"puestos/config"
+	"puestos/models"
+	"puestos/routes"
 
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
@@ -38,7 +38,7 @@ func main() {
 	}
 
 	// Realizar las migraciones antes de iniciar el servidor
-	db.AutoMigrate(&models.Funcion{})
+	db.AutoMigrate(&models.Puesto{})
 
 	r := gin.Default()
 	r.LoadHTMLGlob("templates/*")

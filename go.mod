@@ -1,4 +1,4 @@
-module itsva-puestos
+module puestos
 
 go 1.20
 

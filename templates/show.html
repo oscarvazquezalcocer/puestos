@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Editar Funcion</title>
+    <title>Editar Puesto</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -65,20 +65,20 @@
     </style>
 </head>
 <body>
-    <h1>Editar Funcion</h1>
-    <form action="/{{ .funcion.ID }}/update" method="post">
+    <h1>Editar Puesto</h1>
+    <form action="/{{ .puesto.ID }}/update" method="post">
         <label for="nombre">Nombre:</label><br>
-        <input type="text" id="nombre" name="nombre" value="{{ .funcion.Nombre }}" required><br>
+        <input type="text" id="nombre" name="nombre" value="{{ .puesto.Nombre }}" required><br>
 
         <label for="clave">Clave:</label><br>
-        <input type="text" id="clave" name="clave" value="{{ .funcion.Clave }}" required><br>
+        <input type="text" id="clave" name="clave" value="{{ .puesto.Clave }}" required><br>
                  
 
-        <input type="submit" value="Actualizar Funcion">
+        <input type="submit" value="Actualizar Puesto">
     </form>
-    <form action="/{{ .funcion.ID }}/delete" method="post">
+    <form action="/{{ .puesto.ID }}/delete" method="post">
         <input  type="hidden" name="_method" value="DELETE">
-        <button class="delete-button" onclick="return confirm('¿Estás seguro de que deseas eliminar este funcion?')">Eliminar Funcion</button>
+        <button class="delete-button" onclick="return confirm('¿Estás seguro de que deseas eliminar este puesto?')">Eliminar Puesto</button>
     </form>
 </body>
 </html>
